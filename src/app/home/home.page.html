@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="title">
+    <ion-title>
+      <span><b>automatizador cards anki</b></span>
+      <span class="qtd"><b>{{amountWords}}</b></span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-spinner class="spinner" name="lines" *ngIf="loading"></ion-spinner>
+  <ion-list class="list" *ngFor="let item of words; let i = index; trackBy:trackByFn">
+    <ion-row>
+      <ion-col >
+        <ion-item class="item" [ngClass]="{ 'item-has-focus': i == (words.length - 1) }">
+          <ion-input [id]="i" type="text" (focusout)="checkAmount()" [(ngModel)]="item.value" (keyup.enter)="addWord()" class="input-word"></ion-input>
+        </ion-item>
+        <ion-icon class="iconClose" (click)="removeWord(i)" name="close-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-button expand="block" class="btn" (click)="salvar()">
+    Salvar
+  </ion-button>
+  <ion-button expand="block" class="btn" (click)="sincronizar()">
+    Sincronizar
+  </ion-button>
+
+</ion-content>
